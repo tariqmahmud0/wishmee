@@ -16,7 +16,7 @@ import { CustomizerModal } from './components/CustomizerModal';
 import { Volume2, VolumeX, SlidersHorizontal, RotateCcw, Heart } from 'lucide-react';
 
 const INITIAL_DATA: BirthdayData = {
-  name: 'সামিয়া আক্তার জুঁথি',
+  name: 'যুথি',
   senderName: 'তারিক মাহমুদ',
   gender: 'girl',
   relation: 'friend_girl',

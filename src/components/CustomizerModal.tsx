@@ -133,7 +133,7 @@ export const CustomizerModal: React.FC<CustomizerModalProps> = ({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="যেমন: সামিয়া আক্তার জুঁথি"
+                placeholder="যেমন: যুথি"
                 className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-rose-400 font-medium text-gray-800"
               />
             </div>
