@@ -90,16 +90,97 @@ export default function App() {
     'উপহার',
   ];
 
+  // Distinct theme gradients per step to add visual depth
+  const STEP_GRADIENTS: Record<'girl' | 'boy', string[]> = {
+    girl: [
+      // 0. Welcome: Romantic blush morning
+      'linear-gradient(135deg, #fff1f2 0%, #fce7f3 50%, #fdf4ff 100%)',
+      // 1. Balloons: Vibrant coral & warm peach
+      'linear-gradient(135deg, #fff7ed 0%, #ffe4e6 45%, #fef3c7 100%)',
+      // 2. Cake: Cozy candlelit twilight & golden amber
+      'linear-gradient(135deg, #fffbeb 0%, #fef3c7 40%, #fed7aa 100%)',
+      // 3. Flowers: Garden romance, peony pink & floral petals
+      'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #ffe4e6 100%)',
+      // 4. Memories: Golden hour nostalgia & warm sepia glow
+      'linear-gradient(135deg, #fff7ed 0%, #fef3c7 45%, #fed7aa 100%)',
+      // 5. Letter: Intimate velvet lavender & romantic rose
+      'linear-gradient(135deg, #faf5ff 0%, #f5d0fe 40%, #ffe4e6 100%)',
+      // 6. Gift: Grand celebratory jubilee, sparkling champagne & prism pink
+      'linear-gradient(135deg, #fce7f3 0%, #fed7aa 35%, #fef08a 70%, #f5d0fe 100%)',
+    ],
+    boy: [
+      // 0. Welcome: Fresh morning sky & mint dew
+      'linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #f0fdf4 100%)',
+      // 1. Balloons: Azure skies & electric festival yellow
+      'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef9c3 100%)',
+      // 2. Cake: Warm candle ember & midnight horizon
+      'linear-gradient(135deg, #fefce8 0%, #fed7aa 50%, #e0f2fe 100%)',
+      // 3. Flowers: Emerald botanical garden & cool mist
+      'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #e0f2fe 100%)',
+      // 4. Memories: Twilight dusk & nostalgic gold
+      'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 45%, #fed7aa 100%)',
+      // 5. Letter: Poetic midnight azure & starlight silver
+      'linear-gradient(135deg, #f8fafc 0%, #ede9fe 50%, #e0f2fe 100%)',
+      // 6. Gift: Royal celebration, sapphire, emerald & celebratory gold
+      'linear-gradient(135deg, #e0e7ff 0%, #bae6fd 35%, #fef08a 70%, #dcfce7 100%)',
+    ],
+  };
+
+  const STEP_ACCENT_GLOWS: Record<'girl' | 'boy', { primary: string; secondary: string }[]> = {
+    girl: [
+      { primary: 'rgba(244, 63, 94, 0.18)', secondary: 'rgba(236, 72, 153, 0.15)' },
+      { primary: 'rgba(251, 146, 60, 0.22)', secondary: 'rgba(244, 63, 94, 0.18)' },
+      { primary: 'rgba(245, 158, 11, 0.25)', secondary: 'rgba(251, 191, 36, 0.20)' },
+      { primary: 'rgba(244, 63, 94, 0.22)', secondary: 'rgba(217, 70, 239, 0.18)' },
+      { primary: 'rgba(234, 179, 8, 0.24)', secondary: 'rgba(249, 115, 22, 0.20)' },
+      { primary: 'rgba(168, 85, 247, 0.20)', secondary: 'rgba(244, 63, 94, 0.18)' },
+      { primary: 'rgba(234, 179, 8, 0.28)', secondary: 'rgba(244, 63, 94, 0.24)' },
+    ],
+    boy: [
+      { primary: 'rgba(56, 189, 248, 0.18)', secondary: 'rgba(99, 102, 241, 0.15)' },
+      { primary: 'rgba(99, 102, 241, 0.22)', secondary: 'rgba(56, 189, 248, 0.18)' },
+      { primary: 'rgba(245, 158, 11, 0.22)', secondary: 'rgba(56, 189, 248, 0.20)' },
+      { primary: 'rgba(34, 197, 94, 0.22)', secondary: 'rgba(14, 165, 233, 0.18)' },
+      { primary: 'rgba(234, 179, 8, 0.24)', secondary: 'rgba(99, 102, 241, 0.18)' },
+      { primary: 'rgba(139, 92, 246, 0.20)', secondary: 'rgba(56, 189, 248, 0.18)' },
+      { primary: 'rgba(234, 179, 8, 0.28)', secondary: 'rgba(56, 189, 248, 0.24)' },
+    ],
+  };
+
+  const activeGradients = STEP_GRADIENTS[data.gender] || STEP_GRADIENTS.girl;
+  const activeGlows = STEP_ACCENT_GLOWS[data.gender] || STEP_ACCENT_GLOWS.girl;
+  const currentGlow = activeGlows[currentStep] || activeGlows[0];
+
   return (
-    <div
-      className="min-h-screen min-h-[100dvh] w-full flex flex-col justify-between relative overflow-hidden select-none"
-      style={{
-        background:
-          data.gender === 'boy'
-            ? 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #f0fdf4 100%)'
-            : 'linear-gradient(135deg, #fff1f2 0%, #fce7f3 50%, #fdf4ff 100%)',
-      }}
-    >
+    <div className="min-h-screen min-h-[100dvh] w-full flex flex-col justify-between relative overflow-hidden select-none">
+      {/* Dynamic Smooth Cross-Fading CSS Gradient Layers */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        {activeGradients.map((gradient, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              currentStep === idx ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{ background: gradient }}
+          />
+        ))}
+
+        {/* Ambient Depth Atmospheric Lighting Orbs */}
+        <div
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl transition-all duration-1000 ease-out pointer-events-none"
+          style={{
+            backgroundColor: currentGlow.primary,
+            transform: `translate(${currentStep * 18}px, ${currentStep * 12}px) scale(${1 + (currentStep % 3) * 0.1})`,
+          }}
+        />
+        <div
+          className="absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full blur-3xl transition-all duration-1000 ease-out pointer-events-none"
+          style={{
+            backgroundColor: currentGlow.secondary,
+            transform: `translate(-${currentStep * 16}px, -${currentStep * 10}px) scale(${1 + (currentStep % 2) * 0.15})`,
+          }}
+        />
+      </div>
       {/* Background Animated Sparkles */}
       <BackgroundSparkles />
 
