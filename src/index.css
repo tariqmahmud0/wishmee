@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+@theme {
+  --font-cursive: 'Galada', cursive;
+  --font-title: 'Anek Bangla', 'Hind Siliguri', sans-serif;
+  --font-serif: 'Noto Serif Bengali', serif;
+  --font-fun: 'Atma', cursive;
+  --font-body: 'Hind Siliguri', sans-serif;
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+/* Global scrollbar suppression & mobile responsiveness */
+html, body {
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar utility for Chrome, Safari, Opera, Edge, Firefox */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.font-galada {
+  font-family: 'Galada', cursive;
+}
+
+.font-anek {
+  font-family: 'Anek Bangla', sans-serif;
+}
+
+.font-atma {
+  font-family: 'Atma', cursive;
+}
+
+.font-serif-bn {
+  font-family: 'Noto Serif Bengali', serif;
+}
+
+/* Realistic Lifelike Flame Animations - perfectly centered */
+@keyframes realisticFlameFlicker {
+  0% {
+    transform: scale(1, 1) rotate(-1deg);
+    border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  }
+  20% {
+    transform: scale(0.97, 1.07) rotate(1.8deg);
+    border-radius: 46% 54% 35% 35% / 64% 56% 44% 36%;
+  }
+  40% {
+    transform: scale(1.03, 0.96) rotate(-2deg);
+    border-radius: 52% 48% 38% 38% / 56% 64% 36% 44%;
+  }
+  60% {
+    transform: scale(0.98, 1.05) rotate(2.2deg);
+    border-radius: 54% 46% 36% 36% / 62% 58% 42% 38%;
+  }
+  80% {
+    transform: scale(1.02, 0.98) rotate(-0.5deg);
+    border-radius: 48% 52% 36% 36% / 60% 60% 40% 40%;
+  }
+  100% {
+    transform: scale(1, 1) rotate(-1deg);
+    border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  }
+}
+
+@keyframes innerFlameFlicker {
+  0%, 100% {
+    transform: scale(1, 1) translateY(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(0.9, 1.1) translateY(-1px);
+    opacity: 1;
+  }
+}
+
+@keyframes flameHaloGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.75;
+  }
+}
+
+.realistic-flame {
+  background: linear-gradient(to top, #ff3300 0%, #ff7700 40%, #ffcc00 80%, #ffffaa 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.7),
+              0 0 30px rgba(255, 180, 0, 0.5),
+              0 0 45px rgba(255, 230, 100, 0.3);
+  transform-origin: 50% 90%;
+  animation: realisticFlameFlicker 1.2s infinite ease-in-out;
+}
+
+.inner-flame {
+  background: linear-gradient(to top, #ff9900 0%, #ffff66 50%, #ffffff 100%);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  transform-origin: 50% 90%;
+  animation: innerFlameFlicker 0.8s infinite ease-in-out alternate;
+}
+
+.flame-halo {
+  animation: flameHaloGlow 1.6s infinite ease-in-out;
+}
+
+/* Smoke rising */
+@keyframes smokeRise {
+  0% { opacity: 0.8; transform: translate(-50%, 0) scale(1); }
+  50% { opacity: 0.5; transform: translate(calc(-50% + 6px), -35px) scale(2); }
+  100% { opacity: 0; transform: translate(calc(-50% - 10px), -75px) scale(3.2); filter: blur(5px); }
+}
+
+.animate-smoke {
+  animation: smokeRise 2s forwards ease-out;
+}
+
+/* Envelope Container & 3D Opening Animations */
+.envelope-container {
+  position: relative;
+  width: 88vw;
+  max-width: 440px;
+  height: 240px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin: 0 auto;
+  background: #fcd34d;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.envelope-container:hover {
+  transform: scale(1.02);
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #fde68a;
+  border-radius: 12px;
+  z-index: 3;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  transition: background-color 0.5s ease, opacity 0.8s ease;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 60%;
+  background: #fbbf24;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  z-index: 4;
+  transform-origin: top;
+  transition: transform 0.6s ease, z-index 0s 0.3s, opacity 0.8s ease;
+}
+
+.letter-content {
+  position: absolute;
+  bottom: 10px;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              bottom 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              padding 0.8s ease,
+              max-height 0.8s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.letter-content > * {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Open state: Flap flips 180deg backward, letter slides up */
+.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+  transition: transform 0.6s ease, z-index 0s 0.3s;
+}
+
+.open .letter-content {
+  transform: translateY(-120px);
+  height: 125%;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s,
+              height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s;
+}
+
+/* Read mode state: Envelope parts fade out, letter expands into full view */
+.read-mode .envelope-body,
+.read-mode .envelope-flap {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.read-mode .letter-content {
+  bottom: 50% !important;
+  transform: translateY(50%) scale(1.05) !important;
+  height: auto !important;
+  min-height: 380px !important;
+  max-height: 82vh !important;
+  z-index: 50;
+  padding: 30px 24px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), 0 0 0 100vw rgba(254, 242, 242, 0.85) !important;
+  border-radius: 20px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+              bottom 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 1s ease,
+              border-radius 1s ease !important;
+}
+
+.read-mode .letter-content > * {
+  opacity: 1;
+  transition: opacity 0.6s ease 0.8s;
+}
+
+@media (min-width: 768px) {
+  .read-mode .letter-content {
+    transform: translateY(50%) scale(1.15) !important;
+    width: 440px;
+    left: calc(50% - 220px);
+  }
+}
+
+
+/* Floating balloon */
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+
+.balloon-float {
+  animation: floatGentle 3.5s infinite ease-in-out;
+}
+
+/* Floating sparkle */
+@keyframes sparkleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(0.9); opacity: 0.3; }
+  50% { transform: translateY(-50px) rotate(180deg) scale(1.2); opacity: 0.8; }
+}
+
+.animate-sparkle {
+  animation: sparkleFloat 7s infinite ease-in-out;
+}
+
+/* Petal animation */
+@keyframes petalFall {
+  0% {
+    transform: translate(0, -10vh) rotate(0deg) scale(0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(120px, 105vh) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.petal-particle {
+  animation: petalFall 6s linear forwards;
+}
